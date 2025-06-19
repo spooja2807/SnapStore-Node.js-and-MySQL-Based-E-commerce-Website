@@ -1,0 +1,93 @@
+/* Gradient Background */
+#grad {
+  background-image: radial-gradient(white, lightblue);
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: #ffffffcc;
+  border-bottom: 2px solid #ccc;
+}
+
+.brand {
+  font-size: 28px;
+  font-weight: bold;
+  color: #0077cc;
+  border: 2px solid #0077cc;
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+
+.links a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.links a:hover {
+  color: #0077cc;
+}
+
+/* Tagline */
+.tagline {
+  text-align: center;
+  font-size: 22px;
+  color: #444;
+  margin: 30px 0;
+}
+
+/* Product Grid */
+.product {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  padding: 0 50px 50px;
+  justify-content: center;
+}
+
+/* Product Card */
+.pro {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.pro:hover {
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.pro img {
+  width: 100%;
+  height: auto;
+  max-width: 180px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+/* Product Button */
+button {
+  background-color: #0077cc;
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  font-size: 14px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
