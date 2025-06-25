@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Confirmation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2d78c4;
+    }
+
+    .order-info {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid #dddddd3e;
+    }
+
+    .item img {
+      width: 80px;
+      height: 70px;
+      object-fit: contain;
+      margin-right: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .item-details {
+      flex: 1;
+    }
+
+    .item-details p {
+      margin: 4px 0;
+    }
+
+    .total {
+      text-align: left;
+      margin-top: 20px;
+      font-size: 20px;
+      color: #0066cc;
+      font-weight: bold;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    .back-link:hover {
+      color: #004085;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Order Placed Successfully!</h1>
+
+    <div class="order-info">
+      <p><strong>Order ID:</strong> <%= orderId %></p>
+      <p><strong>Order Placed:</strong> <%= orderDate.toLocaleString() %></p>
+    </div>
+
+    <% items.forEach(item => { %>
+      <div class="item">
+        <img src="/images/<%= item.imgpath %>" alt="<%= item.name %>">
+        <div class="item-details">
+          <p><strong><%= item.name %></strong></p>
+          <p>Quantity: <%= item.qty %></p>
+          <p>Price: <%= formatCurrency(item.price) %></p>
+          <p>Subtotal: <%= formatCurrency(item.price * item.qty )%></p>
+        </div>
+      </div>
+    <% }) %>
+
+    <div class="total">
+      Total Amount: <%= formatCurrency(total) %>
+    </div>
+
+    <a href="/" class="back-link">← Back to Home</a>
+  </div>
+</body>
+</html>

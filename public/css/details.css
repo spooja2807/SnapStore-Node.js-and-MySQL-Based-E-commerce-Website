@@ -1,0 +1,149 @@
+
+#grad {
+  background: radial-gradient(circle at top, #0077cc 0%, #ffffff 100%);
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 30px;
+  background: whitesmoke;
+  border-bottom: 1px solid #ccc;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  z-index: 10;
+  position: fixed;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: bold;
+  color: #0077cc;
+  border: 2px solid #0077cc;
+  padding: 4px 12px;
+  border-radius: 5px;
+  
+}
+a[href="/"] {
+  
+  color: #007BFF;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a[href="/"]:hover {
+  text-decoration: none;
+}
+
+
+.links a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+.links a img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.3s;
+}
+
+.links a img:hover {
+  transform: scale(1.2);
+}
+
+/* Product Card Styling */
+.product-card {
+  margin: 100px auto 40px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+ 
+  padding: 30px;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  color: #222;
+}
+
+.product-card img {
+  width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  margin-bottom: 15px;
+  
+}
+
+.product-card h4 {
+  font-size: 26px;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.product-card p {
+  font-size: 16px;
+  color: #333;
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.product-card b {
+  color: #111;
+}
+
+/* Buttons */
+.add-cart-btn,
+.go-cart-btn {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 30px;
+  border-radius: 8px;
+  border: none;
+  transition: 0.3s ease;
+}
+
+.add-cart-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.add-cart-btn:hover {
+  background-color: #1e7e34;
+  text-decoration: none;
+}
+
+.go-cart-btn {
+  background-color: #007BFF;
+  color: white;
+}
+
+.go-cart-btn:hover {
+  background-color: #0056b3;
+  text-decoration: none;
+}
+
+.cart-count {
+  position: absolute;
+  top: 2px;
+  right: 18px;
+  background-color: rgb(10, 10, 10);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}

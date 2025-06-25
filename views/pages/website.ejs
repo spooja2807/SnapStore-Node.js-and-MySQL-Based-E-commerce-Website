@@ -11,43 +11,42 @@
   <header class="header">
     <p class="brand">E-COMMERCE</p>
     <nav class="links">
-      <a href="home.html">Home</a>
-      <a href="product.html">Product</a>
-      <a href="About.html">About</a>
-      <a href="Contact.html">Contact</a>
-      <a href="Cart.html">🛒 Cart</a>
+      <a href="about"><img src="/images/about.png" width="45px" height="45px"></a>
+      <a href="contact"><img src="/images/contact.png" width="40px" height="40px" ></a>
+      <a  href="user"><img src="/images/user.png" width="30px" height="40px" ></a>
+      <a href="cart"> <img src="/images/cart.png" width="30px" height="30px"><span class="cart-count"><%= cartCount %></span></a>
+      
+      
+      
     </nav>
   </header>
 
   <h2 class="tagline">Happiness is not in money, but in shopping.</h2>
 
+  <div class="category">
+    <p>Shop By Category</p>
+     <nav class="links">
+      <a href="/category/1">Electronics</a>
+      <a href="/category/2">Fashion</a>
+      <a href="/category/3">Books</a>
+      <a href="/category/4">Decor</a>
+    </nav>
+
+  </div>
+<br>
+<br>
   <div class="product">
     <% result.forEach(function(item) { %>
     <div class="pro">
-      <img src="images/<%= item.imgpath %>" alt="<%= item.name %>"">
-      <h4><%= item.name %></h4>
-      <p><b><%= item.price %></b></p>
-      <button>Add to Cart</button>
+      
+      
+      <a href="/details/<%= item.id %>"><h4><%= item.name %></h4><img src="images/<%= item.imgpath %>" alt="<%= item.name %>">
+      <p class="shortdes"><%=item.shortdes %></p>
+      <p><b><%= formatCurrency(item.price) %></b></p>
+</a>
     </div>
     <% }) %>
-    <!-- <div class="pro">
-      <img src="images\samsung.jpg" alt="Samsung Galaxy A53">
-      <h4>Samsung Galaxy A53</h4>
-      <p><b>Rs.24000</b></p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="pro">
-      <img src="images\boat.jpg" alt="Product Image">
-      <h4>boAt Airdopes</h4>
-      <p><b>Rs.1500</b></p>
-      <button>Add to Cart</button>
-    </div>
-    <div class="pro">
-      <img src="" alt="Product Image">
-      <h4></h4>
-      <p><b>Rs.500</b></p>
-      <button>Add to Cart</button>
-    </div> -->
+
   </div>
 
 </body>

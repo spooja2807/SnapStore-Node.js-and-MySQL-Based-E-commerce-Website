@@ -1,6 +1,6 @@
 /* Gradient Background */
 #grad {
-  background-image: radial-gradient(white, lightblue);
+  background-image: radial-gradient(#0077cc,white);
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
@@ -24,6 +24,10 @@
   padding: 5px 15px;
   border-radius: 5px;
 }
+a{
+  color: black;
+  text-decoration: none;
+}
 
 .links a {
   margin-left: 20px;
@@ -32,32 +36,59 @@
   font-weight: 500;
   transition: color 0.3s;
 }
+.links a img:hover{
+  margin-left: 20px;
+  transform:scale(1.15);
+}
 
 .links a:hover {
   color: #0077cc;
+  text-decoration: none;
 }
+
 
 /* Tagline */
 .tagline {
   text-align: center;
-  font-size: 22px;
-  color: #444;
-  margin: 30px 0;
+  font-size: 26px;
+  font-style: italic;
+  font-weight: 500;
+  color: #003366;
+  margin: 40px auto;
+  padding: 15px 30px;
+  border-left: 5px solid #0077cc;
+  border-right: 5px solid #0077cc;
+  background: rgba(255, 255, 255, 0.6);
+  width: fit-content;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
 /* Product Grid */
-.product {
+/* .product {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 30px;
   padding: 0 50px 50px;
   justify-content: center;
 }
+   */
+   .product {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);  
+   /* grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); */
+  gap: 30px;
+  padding: 0 50px 50px;
+   justify-content: center;
+}
+
 
 /* Product Card */
 .pro {
+  backdrop-filter: blur(8px);                /* soft blur behind */
+  border: 1px solid #ddd;
   background-color: #fff;
-  border: 1px solid #e0e0e0;
   border-radius: 10px;
   padding: 20px;
   text-align: center;
@@ -69,7 +100,7 @@
 }
 
 .pro img {
-  width: 100%;
+  width: auto;
   height: auto;
   max-width: 180px;
   margin-bottom: 10px;
@@ -91,3 +122,58 @@ button {
 button:hover {
   background-color: #005fa3;
 }
+/* Category Section */
+.category {
+  margin: 30px auto;
+ 
+  text-align: center;
+}
+
+.category  p {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color:#003366;
+}
+.shortdes{
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.category .links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 0 10px;
+}
+
+.category .links a {
+  background-color: #0077cc;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.category .links a:hover {
+  background-color: #005fa3;
+  transform: translateY(-2px);
+}
+.cart-count {
+  position: absolute;
+  top: 47px;
+  right: 37px;
+  background-color: rgb(10, 10, 10);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+

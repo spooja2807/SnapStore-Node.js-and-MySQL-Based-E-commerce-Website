@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title><%= product.name %></title>
+  <link rel="stylesheet" href="/css/details.css">
+</head>
+
+<body id="grad">
+  <header class="header">
+    <a href="/" ><p class="brand">E-COMMERCE</p></a> 
+    <nav class="links">
+      <a href="about"><img src="/images/about.png" width="45px" height="45px"></a>
+      <a href="contact"><img src="/images/contact.png" width="40px" height="40px" ></a>
+      <a  href="user"><img src="/images/user.png" width="30px" height="40px" ></a>
+      <a href="/cart"> <img src="/images/cart.png" width="30px" height="30px"><span class="cart-count"><%= locals.cartItemCount %></span>
+</a> 
+    </nav>
+  </header>
+  <div class="product-card">
+    <img src="/images/<%= product.imgpath %>" alt="<%= product.name %>">
+    <h4><%= product.name %></h4>
+    <p><b>Brand:</b> <%= product.brand %></p>
+    <p><b>Price:</b> <%= formatCurrency(product.price) %></p>
+    <p><b>Description:</b> <%= product.description %></p>
+    <% if (qty > 0) { %>
+  
+    <a href="/cart" class="go-cart-btn">Go to Cart</a> 
+  </a>
+<% } else { %>
+  <a href="/addtocart/<%= product.id %>" class="add-cart-btn">Add to Cart</a> 
+<% } %>
+
+    <br>
+  </div>
+</body>
+
+</html>

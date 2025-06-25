@@ -25,7 +25,7 @@ console.log(user)
 
 //list all category
 async function getCategory(){
-    const [result]=await pool.query("SELECT * FROM category")
+    const [result]=await pool.query("CALL getcartitems('pooja_28');")
     return result
 }
 const result=await getCategory()
