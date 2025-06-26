@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <title><%= product.name %></title>
-  <link rel="stylesheet" href="/css/details.css">
+  <title>About Us</title>
+  <link rel="stylesheet" href="/css/about.css">
 </head>
 
 <body id="grad">
@@ -19,20 +19,14 @@
     </nav>
   </header>
   <div class="product-card">
-    <img src="/images/<%= product.imgpath %>" alt="<%= product.name %>">
-    <h4><%= product.name %></h4>
-    <p> <%= product.brand %></p>
-    <p><b>Price:</b> <%= formatCurrency(product.price) %></p>
-    <p><b>Description:</b> <%= product.description %></p>
-    <% if (qty > 0) { %>
-  
-    <a href="/cart" class="go-cart-btn">Go to Cart</a> 
-  </a>
-<% } else { %>
-  <a href="/addtocart/<%= product.id %>" class="add-cart-btn">Add to Cart</a> 
-<% } %>
+    <h4>About Us</h4>
+    <p>Welcome to E-Commerce Store - your one-stop destination for everything you love!
 
-    <br>
+We are an online marketplace dedicated to bringing you the best in electronics, fashion, home decor, and books. Whether you're looking to upgrade your gadgets, refresh your wardrobe, beautify your living space, or dive into your next favorite novel - we've got it all, right here.</p>
+<p>We believe online shopping should be simple, enjoyable, and reliable. </p>
+
+<p>Thank you for choosing E-Store.We look forward to being a part of your everyday life!</p>
+
   </div>
 </body>
 

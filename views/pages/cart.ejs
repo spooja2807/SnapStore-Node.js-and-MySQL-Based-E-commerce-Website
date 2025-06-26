@@ -178,19 +178,7 @@ a[href="/"]:hover {
   .back-link:hover {
     color: #0c33a8;
   }
-  .cart-count {
-  position: absolute;
-  top: 2px;
-  right: 18px;
-  background-color: rgb(10, 10, 10);
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 2px 6px;
-  border-radius: 50%;
-  z-index: 10;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-}
+
   </style>
 </head>
 <body>
@@ -200,7 +188,6 @@ a[href="/"]:hover {
       <a href="about"><img src="/images/about.png" width="45px" height="45px"></a>
       <a href="contact"><img src="/images/contact.png" width="40px" height="40px" ></a>
       <a  href="user"><img src="/images/user.png" width="30px" height="40px" ></a>
-      <a href="/cart"> <img src="/images/cart.png" width="30px" height="30px"><span class="cart-count"><%= locals.cartItemCount %></span>
 </a> 
     </nav>
   </header>

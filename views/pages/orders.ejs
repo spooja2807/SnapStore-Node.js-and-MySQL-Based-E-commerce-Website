@@ -6,14 +6,73 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f8f9fa;
+      background-color: #c8dff5;
       margin: 0;
-      padding: 30px;
+      padding: 0;
+ 
+      justify-content: center;
+      align-items: center;
+      padding-top: 100px;
+     
     }
+    .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 30px;
+  background: rgb(141, 183, 227);
+  border-bottom: 1px solid #ccc;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  z-index: 10;
+  position: fixed;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin-bottom: 50px;
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: bold;
+  color: #0077cc;
+  border: 2px solid #0077cc;
+  padding: 4px 12px;
+  border-radius: 5px;
+  
+}
+a[href="/"] {
+  
+  color: #007BFF;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a[href="/"]:hover {
+  text-decoration: none;
+}
+
+
+.links a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+.links a img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.3s;
+}
+
+.links a img:hover {
+  transform: scale(1.2);
+}
 
     .container {
       max-width: 800px;
       margin: auto;
+
       background: white;
       padding: 30px;
       border-radius: 12px;
@@ -34,9 +93,10 @@
     .item {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 15px 0;
-      border-bottom: 1px solid #dddddd3e;
+      justify-content: center;
+      padding: 15px 0px;
+      
+      border-bottom: 1px solid #463e3e30;
     }
 
     .item img {
@@ -64,21 +124,19 @@
       font-weight: bold;
     }
 
-    .back-link {
-      display: block;
-      text-align: center;
-      margin-top: 30px;
-      text-decoration: none;
-      color: #007bff;
-      font-weight: bold;
-    }
-
-    .back-link:hover {
-      color: #004085;
-    }
   </style>
 </head>
 <body>
+   <header class="header">
+    <a href="/" ><p class="brand">E-COMMERCE</p></a> 
+    <nav class="links">
+      <a href="about"><img src="/images/about.png" width="45px" height="45px"></a>
+      <a href="contact"><img src="/images/contact.png" width="40px" height="40px" ></a>
+      <a  href="user"><img src="/images/user.png" width="30px" height="40px" ></a>
+
+</a> 
+    </nav>
+  </header>
   <div class="container">
     <h1>Order Placed Successfully!</h1>
 
@@ -102,8 +160,6 @@
     <div class="total">
       Total Amount: <%= formatCurrency(total) %>
     </div>
-
-    <a href="/" class="back-link">← Back to Home</a>
   </div>
 </body>
 </html>

@@ -72,6 +72,7 @@ a[href="/"]:hover {
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   text-align: center;
+  justify-content: center;
   color: #222222;
 }
 
@@ -84,14 +85,15 @@ a[href="/"]:hover {
 }
 
 .product-card h4 {
-  font-size: 26px;
+  font-size: 28px;
   margin-bottom: 10px;
-  color: #222;
+  color: #024565;
 }
 
 .product-card p {
-  font-size: 16px;
-  color: #333;
+    text-align: left;
+  font-size: 19px;
+  color: #fffcfc;
   margin: 8px 0;
   line-height: 1.5;
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="/css/user.css">
+</head>
+<body>
+  <header class="header">
+    <a href="/"><p class="brand">E-COMMERCE</p></a>
+    <nav class="links">
+      <a href="about"><img src="/images/about.png" width="45" height="45"></a>
+      <a href="contact"><img src="/images/contact.png" width="40" height="40"></a>
+      <a href="user"><img src="/images/user.png" width="30" height="40"></a>
+      <a href="/cart"><img src="/images/cart.png" width="30" height="30">
+        <span class="cart-count"><%= locals.cartItemCount %></span></a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="user-section">
+      <h2>User Profile</h2>
+      <p><strong>User ID:</strong> <%= user.userid %></p>
+      <p><strong>Name:</strong> <%= user.name %></p>
+      <p><strong>Email:</strong> <%= user.emailid %></p>
+      <p><strong>Phone no. :</strong> <%= user.mobile %></p>
+      <p><strong>Address:</strong> <%= user.address%></p>
+    </div>
+
+    <div class="order-section" id="order-history">
+      <h2  >Order History</h2>
+      <% if (items.length === 0) { %>
+        <p>No orders found.</p>
+      <% } else { %>
+        <% items.forEach(item => { %>
+          <div class="order-card">
+            <div class="order-left">
+              <img src="/images/<%= item.imgpath %>" alt="<%= item.name %>" width="45" height="45">
+            </div>
+            <div class="order-right">
+              <p><strong>Order ID:</strong> <%= item.oid %></p>
+              <p><strong>Order Date:</strong> <%= item.date.toLocaleDateString('en-GB') %></p>
+              <p><strong>Product:</strong> <%= item.name %></p>
+              <p><strong>Quantity:</strong> <%= item.qty %></p>
+              <p><strong>Price:</strong> ₹<%= item.price %></p>
+              <p><strong>Total Amount:</strong> ₹<%= item.total_amt %></p>
+            </div>
+          </div>
+        <% }); %>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

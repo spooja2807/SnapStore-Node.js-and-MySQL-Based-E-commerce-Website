@@ -96,6 +96,8 @@ app.get('/contact', (req, res) => {
     res.render('pages/contact');
 });
 
+
+
 // ADD TO CART
 app.get('/addtocart/:id', (req, res) => {
     const prodId = req.params.id;
@@ -135,7 +137,20 @@ app.get('/category/:cid', (req, res) => {
   });
 });
 
-
+//user profile
+app.get('/user', (req, res) => {
+    
+  con.query("SELECT userid ,name,address,mobile, emailid FROM user WHERE userid = ?", [userId], (err, result) => {
+    if (err) {
+      res.send("Database error");
+    }
+ 
+  con.query("select o.oid,o.date,o.total_amt,oi.prod_id,oi.qty,oi.price,p.name,p.imgpath from orders o join order_items oi on o.oid=oi.order_id join products p on oi.prod_id=p.id where o.userid=? order by o.date desc", [userId], (err2, items) => {
+            if (err2) throw err2;
+    res.render("pages/user", { user: result[0], items });
+  });
+ });
+});
 
 
 // INCREMENT QUANTITY

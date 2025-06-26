@@ -70,7 +70,7 @@ a[href="/"]:hover {
   backdrop-filter: blur(8px);
       border-radius: 8px;
        width: 80%;
-  max-width: 600px;
+  max-width: 400px;
       padding: 15px;
       text-align: center;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -160,9 +160,20 @@ a[href="/"]:hover {
   </header>
   <h2 style="padding-top: 40px;"><%= products[0].cname %></h2>
 
+<!-- <h3 style="text-align: center; margin-top: 15px;">Filter by Brand</h3> -->
+<div class="brand-filter" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 20px 0;">
+  <% brands.forEach(brand => { %>
+    <div class="brand-item" data-brand="<%= brand %>" style="cursor: pointer; text-align: center;margin: 15px;">
+      <img src="/images/brands/<%= brand.toLowerCase() %>.png" alt="<%= brand %>" style="width: auto; max-height: 45px;height: auto; border-radius: 3px;">
+      <!-- <p style="margin-top: 5px; font-weight: 600; font-size: 14px;"><%= brand %></p> -->
+    </div>
+  <% }) %>
+</div>
+
+
   <div class="product-grid">
     <% products.forEach((product) => { %>
-      <div class="product-card">
+      <div class="product-card" data-brand="<%= product.brand %>">
         <a href="/details/<%= product.id %>"><img src="/images/<%= product.imgpath %>" alt="<%= product.name %>"></a>
         <h3><%= product.name %></h3>
         <p><%= formatCurrency(product.price) %></p>
@@ -170,5 +181,26 @@ a[href="/"]:hover {
       </div>
     <% }) %>
   </div>
+<!-- filtering products by brand -->
+  <script>
+  const brandItems = document.querySelectorAll('.brand-item');
+  const productCards = document.querySelectorAll('.product-card');
+
+  brandItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const selectedBrand = item.getAttribute('data-brand');
+
+      productCards.forEach(card => {
+        const cardBrand = card.getAttribute('data-brand');
+        if (cardBrand === selectedBrand) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
