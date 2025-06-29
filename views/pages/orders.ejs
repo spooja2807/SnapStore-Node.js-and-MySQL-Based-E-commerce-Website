@@ -123,7 +123,52 @@ a[href="/"]:hover {
       color: #0066cc;
       font-weight: bold;
     }
+/* drop down profile*/
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
 
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    
+     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    
+  }
+
+  .dropdown-content a {
+    
+ 
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+   
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+    
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .user-icon {
+    cursor: pointer;
+     margin-left: 20px;
+  }
+.user-icon:hover{
+   cursor: pointer;
+  margin-left: 20px;
+  transform:scale(1.15);
+  
+}
   </style>
 </head>
 <body>
@@ -132,7 +177,16 @@ a[href="/"]:hover {
     <nav class="links">
       <a href="about"><img src="/images/about.png" width="45px" height="45px"></a>
       <a href="contact"><img src="/images/contact.png" width="40px" height="40px" ></a>
-      <a  href="user"><img src="/images/user.png" width="30px" height="40px" ></a>
+     <div class="dropdown">
+      <img src="/images/user.png" width="30px" height="40px" class="user-icon">
+      <div class="dropdown-content">
+        <a href="user">Profile</a>
+        <a href="user#order-history">Orders</a>
+      </div>
+
+
+</div>
+
 
 </a> 
     </nav>

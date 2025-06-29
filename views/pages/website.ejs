@@ -46,7 +46,7 @@
   </div>
 <br>
 <br>
-  <div class="product">
+  <div class="product"  id="product-list">
     <% result.forEach(function(item) { %>
     <div class="pro">
       
@@ -59,6 +59,53 @@
     <% }) %>
 
   </div>
+<script>
+let offset = <%= result.length %>;
+const limit = 5;
+let loading = false;
+
+function loadMoreProducts() {
+  if (loading) return;
+  loading = true;
+
+  fetch(`/load-products?offset=${offset}&limit=${limit}`)
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById("product-list");
+
+      data.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "pro";
+        div.innerHTML = `
+          <a href="/details/${item.id}">
+            <h4>${item.name}</h4>
+            <img src="images/${item.imgpath}" alt="${item.name}">
+            <p class="shortdes">${item.shortdes}</p>
+            <p><b>₹${item.price}</b></p>
+          </a>
+        `;
+        container.appendChild(div);
+      });
+
+      offset += data.length;
+      loading = false;
+
+      if (data.length < limit) {
+        window.removeEventListener('scroll', handleScroll);
+        
+      }
+    });
+}
+
+function handleScroll() {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight-100 ) {
+    loadMoreProducts();
+  }
+}
+
+window.addEventListener('scroll', handleScroll);
+</script>
+
 
 </body>
 </html>

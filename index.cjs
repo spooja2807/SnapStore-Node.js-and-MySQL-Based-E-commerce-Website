@@ -54,25 +54,44 @@ con.query("CALL getcartitemcount(?)", [userId], (err, countResult) => {
 // });
 // });
 app.get('/', function(req, res) {
-    // Replace with actual user ID, e.g., from session
+  const initialLimit = 5;
 
-    con.query("CALL getproducts()", (err, result) => {
-        if (err) throw err;
+  con.query("SELECT * FROM products LIMIT ?", [initialLimit], (err, result) => {
+    if (err) throw err;
 
-        // Now fetch cart item count
-        con.query("CALL getcartitemcount(?)", [userId], (err2, countResult) => {
-            if (err2) throw err2;
+    con.query("CALL getcartitemcount(?)", [userId], (err2, countResult) => {
+      if (err2) throw err2;
 
-            // Assume procedure returns [{ count: X }]
-            const cartCount = countResult[0][0].count || 0;
+      const cartCount = countResult[0][0].count || 0;
 
-            res.render('pages/website', {
-                result: result[0],
-                cartCount: cartCount
-            });
-        });
+      res.render('pages/website', {
+        result: result,      
+        cartCount: cartCount
+      });
     });
+  });
 });
+
+// app.get('/', function(req, res) {
+//     // Replace with actual user ID, e.g., from session
+
+//     con.query("CALL getproducts()", (err, result) => {
+//         if (err) throw err;
+
+//         // Now fetch cart item count
+//         con.query("CALL getcartitemcount(?)", [userId], (err2, countResult) => {
+//             if (err2) throw err2;
+
+//             // Assume procedure returns [{ count: X }]
+//             const cartCount = countResult[0][0].count || 0;
+
+//             res.render('pages/website', {
+//                 result: result[0],
+//                 cartCount: cartCount
+//             });
+//         });
+//     });
+// });
 
 // product details
 app.get('/details/:id',function(req,res){
@@ -223,3 +242,15 @@ app.post('/place-order', (req, res) => {
   });
 });
 });
+
+//infinte scroll
+app.get('/load-products', (req, res) => {
+    const limit = parseInt(req.query.limit);
+    const offset = parseInt(req.query.offset);
+
+    con.query("SELECT * FROM products LIMIT ? OFFSET ?", [limit, offset], (err, result) => {
+        if (err) return res.status(500).send("Database error");
+        res.json(result);
+    });
+});
+

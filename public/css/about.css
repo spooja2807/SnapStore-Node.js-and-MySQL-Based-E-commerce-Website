@@ -149,3 +149,49 @@ a[href="/"]:hover {
   z-index: 10;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
 }
+/* drop down profile*/
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    
+     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    
+  }
+
+  .dropdown-content a {
+    
+ 
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+   
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+    
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .user-icon {
+    cursor: pointer;
+     margin-left: 20px;
+  }
+.user-icon:hover{
+   cursor: pointer;
+  margin-left: 20px;
+  transform:scale(1.15);
+  
+}
