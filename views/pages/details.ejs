@@ -5,19 +5,20 @@
   <meta charset="UTF-8">
   <title><%= product.name %></title>
   <link rel="stylesheet" href="/css/details.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body id="grad">
   <header class="header">
-    <a href="/" ><p class="brand">E-COMMERCE</p></a> 
+    <a href="/" ><p class="brand">SNAPSTORE</p></a> 
     <nav class="links">
-      <a href="about"><img src="/images/about.png" width="45px" height="45px"></a>
-      <a href="contact"><img src="/images/contact.png" width="40px" height="40px" ></a>
+      <a href="/about"><img src="/images/about.png" width="45px" height="45px"></a>
+      <a href="/contact"><img src="/images/contact.png" width="40px" height="40px" ></a>
       <div class="dropdown">
       <img src="/images/user.png" width="30px" height="40px" class="user-icon">
       <div class="dropdown-content">
-        <a href="user">Profile</a>
-        <a href="user#order-history">Orders</a>
+        <a href="/user">Profile</a>
+        <a href="/user#order-history">Orders</a>
       </div>
 
 
@@ -28,9 +29,21 @@
     </nav>
   </header>
   <div class="product-card">
-    <img src="/images/<%= product.imgpath %>" alt="<%= product.name %>">
+    <div class="product-image">
+    <img src="/images/<%= product.imgpath %>" alt="<%= product.name %>"></div>
+    <div class="product-details">
     <h4><%= product.name %></h4>
     <p> <%= product.brand %></p>
+    <p class="overall-rating">
+  <% if (avgRating !== null && !isNaN(avgRating)) { 
+       const roundedRating = Math.floor(avgRating);
+  %>
+    <% for (let i = 0; i < roundedRating; i++) { %>
+      <i class="fa fa-star star"></i>
+    <% } %>
+
+  <% } %>
+</p>
     <p><b>Price:</b> <%= formatCurrency(product.price) %></p>
     <p><b>Description:</b> <%= product.description %></p>
     <% if (qty > 0) { %>
@@ -40,9 +53,106 @@
 <% } else { %>
   <a href="/addtocart/<%= product.id %>" class="add-cart-btn">Add to Cart</a> 
 <% } %>
-
-    <br>
+</div>
+</div>
+<div class="related-section">
+  <h3 class="related-title">Related Products</h3>
+  <div class="related-products">
+    <% related.forEach(p => { %>
+      <a href="/details/<%= p.id %>"><div class="related-card">
+        <img src="/images/<%= p.imgpath %>" alt="<%= p.name %>">
+        <h4><%= p.name %></h4>
+        <p>₹<%= p.price %></p>
+      </div></a>
+    <% }) %>
   </div>
+</div>
+<div class="reviews-section" >
+<div class="wrapper">
+<h3>Write a review</h3>
+<form  action="/addreview/<%=product.id %>" method="post">
+  <div class="rating">
+    <input type="number" name="rating"  id="rating" hidden required>
+    <i class="fa fa-star-o star " data-value="1" ></i>
+    <i class="fa fa-star-o star" data-value="2"></i> 
+    <i class="fa fa-star-o star" data-value="3"></i> 
+    <i class="fa fa-star-o star" data-value="4"></i> 
+    <i class="fa fa-star-o star" data-value="5"></i> 
+  </div>
+  <textarea name="rtext" cols="30" rows="5" placeholder="Write your review here..."></textarea>
+  <div><button type="submit" class="submit-btn">Submit</button></div>
+</form>
+<% if (reviews.length > 0) { %>
+  <div class="existing-reviews">
+    <h3>Customer Reviews</h3>
+    <% reviews.forEach(review => { %>
+      <div class="review-item">
+        <div class="review-header">
+          <span class="review-name"><%= review.name %></span>
+          <span class="review-stars">
+            <% for(let i=0; i < review.rating; i++) { %>
+              <i class="fa fa-star" style="color:gold"></i>
+            <% } %>
+        
+          </span>
+        </div>
+        <p class="review-text"><%= review.review_text %></p>
+      </div>
+    <% }) %>
+  </div>
+<% } else { %>
+  <p style="margin-top:20px;color:gray;">No reviews yet.</p>
+<% } %>
+
+</div>
+
+</div>
+
+  
+    <footer class="footer">
+  <div class="footer-container">
+    
+    <div class="footer-left">
+      <a href="/" ><p class="brand">SNAPSTORE</p></a>
+    </div>
+
+    <div class="footer-links">
+      <h3>Useful Links</h3>
+      <ul>
+        <li><a href="/user">My Profile</a></li>
+        <li><a href="/cart">Cart</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+        <li><a href="/about">About Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h3>Contact Info</h3>
+      <p>Email: snapstore@gmail.com</p>
+      <p>Phone: +91 7010335776</p>
+      <p>Address: Sankaran Street, Chennai, India</p>
+    </div>
+
+  </div>
+</footer>
+<script>
+  const allStar=document.querySelectorAll('.rating .star');
+   const ratingInput = document.getElementById('rating');
+  allStar.forEach((item,idx)=>{
+    item.addEventListener('click',function(){
+      const value = item.getAttribute('data-value');
+      ratingInput.value = value;
+      allStar.forEach(i=> {
+        i.classList.replace('fa-star','fa-star-o');
+      });
+      for(let i=0;i<=idx;i++){
+      
+        allStar[i].classList.replace('fa-star-o','fa-star');
+      
+    }
+    });
+  });
+</script>
 </body>
 
 </html>

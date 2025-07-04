@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>E-Commerce</title>
-  <link rel="stylesheet" href="css\ex3.css">
+  <title>SNAPSTORE</title>
+  <link rel="stylesheet" href="css\website.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body id="grad">
 
   <header class="header">
-    <p class="brand">E-COMMERCE</p>
+    <a href="/" ><p class="brand">SNAPSTORE</p></a>
     <nav class="links">
       <a href="about"><img src="/images/about.png" width="45px" height="45px"></a>
       <a href="contact"><img src="/images/contact.png" width="40px" height="40px" ></a>
@@ -59,15 +60,44 @@
     <% }) %>
 
   </div>
+  
+    <img src="/images/loading.gif" alt="" class="loading" > 
+
+
+  <footer class="footer">
+  <div class="footer-container">
+    
+    <div class="footer-left">
+      <a href="/" ><p class="brand">SNAPSTORE</p></a>
+    </div>
+
+    <div class="footer-links">
+      <h3>Useful Links</h3>
+      <ul>
+        <li><a href="/profile">My Profile</a></li>
+        <li><a href="/cart">Cart</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+        <li><a href="/about">About Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h3>Contact Info</h3>
+      <p>Email: snapstore@gmail.com</p>
+      <p>Phone: +91 7010335776</p>
+      <p>Address: Sankaran Street, Chennai, India</p>
+    </div>
+
+  </div>
+</footer>
 <script>
 let offset = <%= result.length %>;
-const limit = 5;
+const limit = 4;
 let loading = false;
+loading_img = document.querySelector('.loading');
 
 function loadMoreProducts() {
-  if (loading) return;
   loading = true;
-
   fetch(`/load-products?offset=${offset}&limit=${limit}`)
     .then(res => res.json())
     .then(data => {
@@ -92,15 +122,25 @@ function loadMoreProducts() {
 
       if (data.length < limit) {
         window.removeEventListener('scroll', handleScroll);
+    
         
       }
+       loading_img.classList.remove('show');
     });
 }
 
 function handleScroll() {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight-100 ) {
-    loadMoreProducts();
+   if (loading) return;
+   loading = true;
+    loading_img.classList.add('show');
+    setTimeout(loadMoreProducts, 1000);
+      // loadMoreProducts();
   }
+  else {
+    loading_img.classList.remove('show');
+  }
+
 }
 
 window.addEventListener('scroll', handleScroll);

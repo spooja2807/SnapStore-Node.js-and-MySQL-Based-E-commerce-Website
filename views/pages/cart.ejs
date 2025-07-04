@@ -6,13 +6,17 @@
     body {
       font-family: 'Segoe UI', sans-serif;
       background: #f3f3f3;
-      margin: 0;
-      padding: 20px;
+
     }
 
     h1 {
       text-align: center;
+;
     }
+    body,main{
+  padding: 0;
+  margin: 0;
+}
     .header {
   display: flex;
   justify-content: space-between;
@@ -224,12 +228,72 @@ a[href="/"]:hover {
   transform:scale(1.15);
   
 }
+/* footer */
+.footer .brand {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  padding: 5px 15px;
+  border-radius: 5px;
+  display: inline-block;
+}
+.footer {
+  background-color: #222;
+  color: #fff;
+  position: relative;
+  padding: 30px 0;
+  width: 100%;
+  margin-top: 160px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin:  auto;
+}
+
+.footer-left,
+.footer-links,
+.footer-contact {
+  flex: 1;
+  min-width: 220px;
+  margin-bottom: 20px;
+}
+.footer-left{
+  justify-content: center;
+  margin: auto;
+}
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 8px;
+}
+
+.footer-links ul li a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.footer-links ul li a:hover {
+  color: #fff;
+}
+
+.footer-contact p {
+  margin: 6px 0;
+}
+
 
   </style>
 </head>
 <body>
   <header class="header">
-    <a href="/" ><p class="brand">E-COMMERCE</p></a> 
+    <a href="/" ><p class="brand">SNAPSTORE</p></a> 
     <nav class="links">
       <a href="about"><img src="/images/about.png" width="45px" height="45px"></a>
       <a href="contact"><img src="/images/contact.png" width="40px" height="40px" ></a>
@@ -254,7 +318,7 @@ a[href="/"]:hover {
   </div>
   <% } else { %>
     
-  <h1 style="padding-top: 30px;">Your Cart</h1>
+  <h1 style="padding-top: 50px;">Your Cart</h1>
   <div class="cart-container">
     <% let grandTotal = 0; %>
     <% cart.forEach(item => { %>
@@ -284,6 +348,31 @@ a[href="/"]:hover {
   <button type="submit" class="order-btn">Place Order</button>
 </form>
 <% } %>
+  <footer class="footer">
+  <div class="footer-container">
+    
+    <div class="footer-left">
+      <a href="/" ><p class="brand">SNAPSTORE</p></a>
+    </div>
 
+    <div class="footer-links">
+      <h3>Useful Links</h3>
+      <ul>
+        <li><a href="/user">My Profile</a></li>
+        <li><a href="/cart">Cart</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+        <li><a href="/about">About Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h3>Contact Info</h3>
+      <p>Email: snapstore@gmail.com</p>
+      <p>Phone: +91 7010335776</p>
+      <p>Address: Sankaran Street, Chennai, India</p>
+    </div>
+
+  </div>
+</footer>
 </body>
 </html>

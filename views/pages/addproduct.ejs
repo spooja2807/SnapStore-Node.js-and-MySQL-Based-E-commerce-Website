@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Product</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+form {
+  max-width: 600px;
+  margin: auto;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+label {
+  display: inline-block;
+  width: 150px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #555;
+  vertical-align: top;
+}
+
+input, textarea, select {
+  display: inline-block;
+  width: 70%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+    button {
+      padding: 12px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+
+    }
+    label {
+    margin-right: 10px;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Add New Product</h2>
+
+  <form action="/addproduct" method="post" enctype="multipart/form-data">
+     <label for="name" id="name">Product Name</label><input type="text" name="name" required>
+<br>
+    <label for="price">Price</label>
+    <input type="number" name="price" id="price" required>
+    <br>
+
+    <label for="brand">Brand</label>
+    <input type="text" name="brand" id="brand" required>
+<br>
+    <label for="qty">Quantity</label>
+    <input type="number" name="qty" id="qty" required>
+<br>
+    <label for="shortdes">Short Description</label>
+    <input type="text" name="shortdes" id="shortdes" required>
+<br>
+    <label for="description">Description</label>
+    <textarea name="description" id="description" required></textarea>
+<br>
+    <label for="cid">Category</label>
+    <select name="cid" id="cid" required>
+      <% categories.forEach(c => { %>
+        <option value="<%= c.cid %>"><%= c.cname %></option>
+      <% }) %>
+    </select>
+    <br>
+    <label for="product_image">Product Image</label>
+    <input type="file" id="product_image" name="product_image" required>
+    <br>
+    <button type="submit">Add Product</button>
+  </form>
+
+</body>
+</html>

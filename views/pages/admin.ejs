@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      
+  background-image: radial-gradient(#2b78e3,white);
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #0400d4;
+    }
+    .top-bar {
+      text-align: right;
+      margin-bottom: 40px;
+      margin-top: 40px;
+      
+    }
+    .top-bar a {
+      padding: 12px 20px;
+      background: #0000ff;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-right: 70px;
+    }
+    table {
+      width: 90%;
+      margin: auto;
+      border-collapse: collapse;
+      background: rgb(255, 255, 255);
+    }
+    th, td {
+      border: 1px solid #000000;
+      padding: 12px;
+      text-align: center;
+
+    }
+    th {
+      background-color: #4848eb;
+      color: white;
+    }
+    .prodimg {
+      height: 80px;
+    }
+    .btn {
+      border-radius: 4px;
+      width: 40px;
+      height: 40px;
+;
+      margin: 0 4px;
+    }
+    .btn:hover {
+        transform: scale(1.15);
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<h1>Admin</h1>
+<div class="top-bar">
+    <a href="/addproduct">Add Product</a>
+  </div>
+
+  <table>
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+       <th>Brand</th>
+      <th>Price</th>
+      <th>Qty</th>
+      <th>Category</th>
+      <th>Action</th>
+    </tr>
+    <% products.forEach(p => { %>
+      <tr>
+        <td><img src="/images/<%= p.imgpath %>" alt="" class="prodimg"></td>
+        <td><%= p.name %></td>
+          <td><%= p.brand %></td>
+        <td><%= formatCurrency(p.price) %></td>
+
+        <td><%= p.qty %></td>
+        <td><%= p.category_name %></td>
+
+        <td>
+          <a href="/deleteproduct/<%= p.id %>" ><img src="/images/delete.png " class="btn"></a>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const msg = urlParams.get('msg');
+  if (msg === 'success') {
+    alert(' Product added successfully!');
+  } else if (msg === 'error') {
+    alert(' Failed to add product.');
+  }
+  if (msg) {
+    const url = new URL(window.location);
+    url.searchParams.delete("msg");
+    window.history.replaceState({}, document.title, url);
+  }
+
+</script>
+</body>
+</html>

@@ -3,10 +3,11 @@ var ejs=require('ejs')
 var bodyParser=require('body-parser')
 var mysql=require('mysql2');
 const currencyFormatter = require('currency-formatter');
-//var session=require('express-session');
 
 
 var app=express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static('public'));
 app.set('view engine','ejs');
 app.listen(8080);
@@ -47,16 +48,22 @@ con.query("CALL getcartitemcount(?)", [userId], (err, countResult) => {
   }
 });
 
-//localhost
-// app.get('/',function(req,res){
-//     con.query("CALL getproducts()",(err,result)=>{
-//         res.render('pages/website',{result:result[0]});
-// });
-// });
+//multer-for uploading image files
+const multer = require('multer');
+const path = require('path');
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/images'); 
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+const upload = multer({ storage });
+//home page
 app.get('/', function(req, res) {
-  const initialLimit = 5;
-
-  con.query("SELECT * FROM products LIMIT ?", [initialLimit], (err, result) => {
+  const initialLimit =4;
+  con.query("call get_limited_products(?,0);", [initialLimit], (err, result) => {
     if (err) throw err;
 
     con.query("CALL getcartitemcount(?)", [userId], (err2, countResult) => {
@@ -65,33 +72,24 @@ app.get('/', function(req, res) {
       const cartCount = countResult[0][0].count || 0;
 
       res.render('pages/website', {
-        result: result,      
+        result: result[0],      
         cartCount: cartCount
       });
     });
   });
 });
 
-// app.get('/', function(req, res) {
-//     // Replace with actual user ID, e.g., from session
+//infinte scroll
+app.get('/load-products', (req, res) => {
+    const limit = parseInt(req.query.limit);
+    const offset = parseInt(req.query.offset);
 
-//     con.query("CALL getproducts()", (err, result) => {
-//         if (err) throw err;
+    con.query("call get_limited_products(?,?);", [limit, offset], (err, result) => {
+        if (err) return res.status(500).send("Database error");
+        res.json(result[0]);
+    });
+});
 
-//         // Now fetch cart item count
-//         con.query("CALL getcartitemcount(?)", [userId], (err2, countResult) => {
-//             if (err2) throw err2;
-
-//             // Assume procedure returns [{ count: X }]
-//             const cartCount = countResult[0][0].count || 0;
-
-//             res.render('pages/website', {
-//                 result: result[0],
-//                 cartCount: cartCount
-//             });
-//         });
-//     });
-// });
 
 // product details
 app.get('/details/:id',function(req,res){
@@ -101,11 +99,28 @@ app.get('/details/:id',function(req,res){
         if (result[0].length === 0) {
             return res.status(404).send("Product not found");
         }
-        con.query("SELECT qty FROM cart WHERE userid = ? AND prodid = ?", [userId, id], (err2, cartResult) => {
+        const product = result[0][0];
+        con.query("call cart_qty_for_btn(?,?)", [userId, id], (err2, cartResult) => {
             if (err2) throw err2;
-             const qtyInCart = cartResult.length > 0 ? cartResult[0].qty : 0;
-        res.render('pages/details', { product: result[0][0],qty: qtyInCart });
+             const qtyInCart = cartResult[0].length > 0 ? cartResult[0][0].qty : 0;
+      // related products by same category
+      con.query("call get_related_products(?,?)", [product.cid, id], (err3, relatedProducts) => {
+        if (err3) throw err3;
+       
+      //reviews
+      const reviewQuery ="call get_reviews(?)";
+       con.query(reviewQuery, [id], (err, reviews) => {
+      if (err) return res.send('Review Error');
+       
+      //average rating
+        con.query("call get_average_rating(?)", [id], (err, avg) => {
+      if (err) return res.status(500).send("Rating error");
+      const avgRating = avg[0][0].avg_rating;
+      res.render('pages/details', { product,qty: qtyInCart,related: relatedProducts[0],reviews:reviews[0], avgRating});
     });
+    });
+    });
+});
 });
 });
 app.get('/about', (req, res) => {
@@ -117,7 +132,7 @@ app.get('/contact', (req, res) => {
 
 
 
-// ADD TO CART
+// add to cart
 app.get('/addtocart/:id', (req, res) => {
     const prodId = req.params.id;
     con.query("CALL addtocart(?, ?);", [prodId, userId], (err, result) => {
@@ -129,7 +144,7 @@ app.get('/addtocart/:id', (req, res) => {
     });
 });
 
-// VIEW CART
+// view cart
 app.get('/cart', (req, res) => {
     
     con.query("CALL getcartitems(?);", [userId], (err, result) => {
@@ -145,13 +160,13 @@ app.get('/cart', (req, res) => {
 app.get('/category/:cid', (req, res) => {
   const cid = req.params.cid;
 
-  con.query("SELECT p.id,p.name, p.imgpath, p.price,p.brand, c.cname FROM products p JOIN category c ON p.cid = c.cid WHERE p.cid = ? and p.qty>0", [cid], (err, result) => {
+  con.query("call get_category_products(?);", [cid], (err, result) => {
     if (err) {
       res.send("Database error");
     } else {
-      const brandset=new Set(result.map(item => item.brand));
+      const brandset=new Set(result[0].map(item => item.brand));
       const brands = Array.from(brandset);
-      res.render("pages/category", { products: result ,brands:brands});
+      res.render("pages/category", { products: result[0] ,brands:brands});
     }
   });
 });
@@ -159,25 +174,25 @@ app.get('/category/:cid', (req, res) => {
 //user profile
 app.get('/user', (req, res) => {
     
-  con.query("SELECT userid ,name,address,mobile, emailid FROM user WHERE userid = ?", [userId], (err, result) => {
+  con.query("call get_user_details(?);", [userId], (err, result) => {
     if (err) {
       res.send("Database error");
     }
  
-  con.query("select o.oid,o.date,o.total_amt,oi.prod_id,oi.qty,oi.price,p.name,p.imgpath from orders o join order_items oi on o.oid=oi.order_id join products p on oi.prod_id=p.id where o.userid=? order by o.date desc", [userId], (err2, items) => {
+  con.query("call get_user_orders(?);", [userId], (err2, items) => {
             if (err2) throw err2;
-    res.render("pages/user", { user: result[0], items });
+    res.render("pages/user", { user: result[0][0], items:items[0] });
   });
  });
 });
 
 
-// INCREMENT QUANTITY
+// Increment Quantity
 app.get('/cart/increment/:pid', (req, res) => {
     res.redirect(`/addtocart/${req.params.pid}`);
 });
 
-// DECREMENT QUANTITY
+// Decrement quantity
 app.get('/cart/decrement/:pid', (req, res) => {
     const pid = req.params.pid;
     con.connect(err => {
@@ -230,7 +245,6 @@ app.post('/place-order', (req, res) => {
 
   const orderDate = dateResult[0].date;
           res.render("pages/orders", {
-          
           orderId,
           orderDate,
           total,
@@ -242,15 +256,58 @@ app.post('/place-order', (req, res) => {
   });
 });
 });
+//admin
+app.get('/admin', (req, res) => {
+  const msg = req.query.msg; 
+  const productsQuery = `
+    SELECT p.*, c.cname AS category_name 
+    FROM products p 
+    JOIN category c ON p.cid = c.cid
+  `;
 
-//infinte scroll
-app.get('/load-products', (req, res) => {
-    const limit = parseInt(req.query.limit);
-    const offset = parseInt(req.query.offset);
+  con.query(productsQuery, (err, products) => {
+    if (err) return res.send("Error fetching products");
+    res.render("pages/admin", { products,msg });
+  });
+});
+//admin add product
+app.get('/addproduct', (req, res) => {
 
-    con.query("SELECT * FROM products LIMIT ? OFFSET ?", [limit, offset], (err, result) => {
-        if (err) return res.status(500).send("Database error");
-        res.json(result);
-    });
+  con.query("SELECT * FROM category", (err, categories) => {
+    if (err) return res.send("Error loading categories");
+    res.render("pages/addproduct", { categories });
+  });
+});
+app.post('/addproduct', upload.single('product_image'), (req, res) => {
+  const { name, price, brand, qty, shortdes, description, cid } = req.body;
+  const imgpath = req.file.filename;
+
+  const sql = `
+    call add_product(?, ?, ?, ?, ?, ?, ?, ?);
+  `;
+  con.query(sql, [name, price, imgpath, brand, qty, shortdes, description, cid], (err) => {
+    if (err) {
+      console.error(err);
+      return res.redirect('/admin?msg=error');
+    }
+    res.redirect('/admin?msg=success');
+  });
+});
+//admin delete product
+app.get('/deleteproduct/:id', (req, res) => {
+
+  con.query("DELETE FROM products WHERE id = ?", [req.params.id], (err) => {
+    if (err) return res.send("Error deleting product");
+    res.redirect('/admin');
+  });
 });
 
+//review
+app.post('/addreview/:id', (req, res) => {
+  const prodId = req.params.id;
+  const {rating,rtext}=req.body;
+  con.query("call add_review(?, ?, ?, ?)", [userId, prodId, rating, rtext], (err, result) => {
+    if (err) return res.send("Database Error");
+    res.redirect('/details/' + prodId); 
+  });
+});

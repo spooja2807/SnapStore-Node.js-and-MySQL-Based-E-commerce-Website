@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us</title>
+  <style>
+ 
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-image: radial-gradient(#0077cc,white);
+      
+      
+    }
+  body, main {
+  margin: 0;
+  padding: 0;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 30px;
+  background: whitesmoke;
+  border-bottom: 1px solid #ccc;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  z-index: 10;
+  position: fixed;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: bold;
+  color: #0077cc;
+  border: 2px solid #0077cc;
+  padding: 4px 12px;
+  border-radius: 5px;
+  
+}
+a[href="/"] {
+  
+  color: #007BFF;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a[href="/"]:hover {
+  text-decoration: none;
+}
+
+
+.links a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+.links a img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.3s;
+}
+
+.links a img:hover {
+  transform: scale(1.2);
+}
+.cart-count {
+  position: absolute;
+  top: 2px;
+  right: 18px;
+  background-color: rgb(10, 10, 10);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+/* drop down profile*/
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    
+     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    
+  }
+
+  .dropdown-content a {
+    
+ 
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+   
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+    
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .user-icon {
+    cursor: pointer;
+     margin-left: 20px;
+  }
+.user-icon:hover{
+   cursor: pointer;
+  margin-left: 20px;
+  transform:scale(1.15);
+  
+}
+
+
+    .contact-container {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff88;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.08);
+      margin-top:140px;
+      margin-bottom: 70px;
+      
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #d8e6ef;
+    }
+
+    .contact-item:last-child {
+      border-bottom: none;
+    }
+
+    .info {     
+      font-size: 16px;
+      color: #555;
+    }
+    /* footer */
+.footer .brand {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  padding: 5px 15px;
+  border-radius: 5px;
+  display: inline-block;
+}
+.footer {
+  background-color: #222;
+  color: #fff;
+  position: relative;
+  padding: 30px 0;
+
+  width: 100%;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin:  auto;
+}
+
+.footer-left,
+.footer-links,
+.footer-contact {
+  flex: 1;
+  min-width: 220px;
+  margin-bottom: 20px;
+}
+.footer-left{
+  justify-content: center;
+  margin: auto;
+}
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 8px;
+}
+
+.footer-links ul li a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.footer-links ul li a:hover {
+  color: #fff;
+}
+
+.footer-contact p {
+  margin: 6px 0;
+}
+
+    
+  </style>
+</head>
+<body>
+<header class="header">
+    <a href="/" ><p class="brand">SNAPSTORE</p></a> 
+    <nav class="links">
+      <a href="/about"><img src="/images/about.png" width="45px" height="45px"></a>
+      <a href="/contact"><img src="/images/contact.png" width="40px" height="40px" ></a>
+    <div class="dropdown">
+      <img src="/images/user.png" width="30px" height="40px" class="user-icon">
+      <div class="dropdown-content">
+        <a href="/user">Profile</a>
+        <a href="/user#order-history">Orders</a>
+      </div>
+
+
+</div>
+
+      <a href="/cart"> <img src="/images/cart.png" width="30px" height="30px"><span class="cart-count"><%= locals.cartItemCount %></span>
+</a> 
+    </nav>
+  </header>
+  <div class="contact-container">
+    <h2>Contact Us</h2>
+
+    <div class="contact-item">
+      <img src="/images/mail.png"  width="50" height="50">
+      <span class="info">snapstore@gmail.com</span>
+    </div>
+
+    <div class="contact-item">
+      <img src="/images/call.png"  width="50" height="50">
+      <span class="info">+91 7010335776</span>
+    </div>
+
+    <div class="contact-item">
+      <img src="/images/location.png"   width="50" height="50">
+      <span class="info">Sankaran Street, Chennai, India</span>
+    </div>
+
+
+  </div>
+<footer class="footer">
+  <div class="footer-container">
+    
+    <div class="footer-left">
+    <a href="/"> <p class="brand">SNAPSTORE</p></a>
+    </div>
+
+    <div class="footer-links">
+      <h3>Useful Links</h3>
+      <ul>
+        <li><a href="/user">My Profile</a></li>
+        <li><a href="/cart">Cart</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+        <li><a href="/about">About Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h3>Contact Info</h3>
+      <p>Email: snapstore@gmail.com</p>
+      <p>Phone: +91 7010335776</p>
+      <p>Address: Sankaran Street, Chennai, India</p>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>
