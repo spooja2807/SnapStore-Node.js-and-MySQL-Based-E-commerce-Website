@@ -169,67 +169,7 @@ a[href="/"]:hover {
   transform:scale(1.15);
   
 }
- /* footer */
-.footer .brand {
-  font-size: 28px;
-  font-weight: bold;
-  color: #ffffff;
-  border: 2px solid #ffffff;
-  padding: 5px 15px;
-  border-radius: 5px;
-  display: inline-block;
-}
-.footer {
-  background-color: #222;
-  color: #fff;
-  position: relative;
-  padding: 30px 0;
-
-  width: 100%;
-}
-
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin:  auto;
-}
-
-.footer-left,
-.footer-links,
-.footer-contact {
-  flex: 1;
-  min-width: 220px;
-  margin-bottom: 20px;
-}
-.footer-left{
-  justify-content: center;
-  margin: auto;
-}
-.footer-links ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-links ul li {
-  margin-bottom: 8px;
-}
-
-.footer-links ul li a {
-  color: #ccc;
-  text-decoration: none;
-}
-
-.footer-links ul li a:hover {
-  color: #fff;
-}
-
-.footer-contact p {
-  margin: 6px 0;
-}
-
-
+ 
   </style>
 </head>
 <body>
@@ -294,31 +234,6 @@ a[href="/"]:hover {
     });
   });
 </script>
-<footer class="footer">
-  <div class="footer-container">
-    
-    <div class="footer-left">
-      <a href="/" ><p class="brand">SNAPSTORE</p></a>
-    </div>
-
-    <div class="footer-links">
-      <h3>Useful Links</h3>
-      <ul>
-        <li><a href="/user">My Profile</a></li>
-        <li><a href="/cart">Cart</a></li>
-        <li><a href="/contact">Contact Us</a></li>
-        <li><a href="/about">About Us</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-contact">
-      <h3>Contact Info</h3>
-      <p>Email: snapstore@gmail.com</p>
-      <p>Phone: +91 7010335776</p>
-      <p>Address: Sankaran Street, Chennai, India</p>
-    </div>
-
-  </div>
-</footer>
+<%- include('footer') %>
 </body>
 </html>
